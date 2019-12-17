@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="icon" type="image/x-icon" href="./images/favicon.ico">
+  <link rel="stylesheet" href="font-face.css">
+
+
+  <script src= "./plugin/d3-chart.min.js"></script>
+  <script src="./plugin/d3.v5.min.js"></script>
+  <script src="./plugin/md5.min.js"></script>
+  <script src="./plugin/html2canvas.js"></script>
+
+  <link rel="stylesheet" href="./index.css">
+
+</head>
+
+<body>
+
+
+  <main class="active">
+
+    <div class="show-container">
+      <!-- 头部 -->
+      <header>
+        <div class="chart-title-box">
+          <h4></h4>
+          <div class="chart-title-text">
+            <div class="view-data-tip active" data-html2canvas-ignore="true">
+              <!-- 头部tip信息 -->
+            </div> 
+            <div class="view-data" data-html2canvas-ignore="true">
+              <img class="view-data-img" src="https://ss1.dydata.io/excel.svg"/>
+              <div class="view-data-text">查看数据</div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <h4 class="title active"></h4>
+      <!-- 内容部分 -->
+      <article>     
+        <section class="page">        
+          <div id="page-logo" class="page-logo">
+            <img src="https://ss1.dydata.io/block-logo.svg" alt="">
+          </div>
+        </section>
+      </article>
+
+      <div class="publish-time"></div>
+
+      <div class="from-tooltip">
+        <div class="from-box">
+          <div class="from">
+            <span class="dataSouce"></span>
+            <div class="code-wrapper">
+              <p>扫码领取<br>免费报告</p>
+              <img src="./images/official-account.png">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer" data-html2canvas-ignore="true">
+      <div class="tips">温馨提示：由于数据维度较多，图表可能只显示了部分内容，欢迎登录dydata.io查看完整数据。</div>
+      <div class="transmit-box">
+        <span class="home"><i></i>返回首页</span>
+        <span class="collection"><i></i>喜欢</span>
+        <span class="purchase"><i></i>购买</span>
+        <span class="transmit"><i></i>保存与转发</span>
+      </div>
+    </div>
+
+    <div class="disLike-mask active" data-html2canvas-ignore="true">
+      <div class="disLike-mask-box">
+        已取消喜欢
+      </div>
+    </div>
+    
+    <div class="like-mask active" data-html2canvas-ignore="true">
+      <div class="mask-box">
+        <p>喜欢成功。登录dydata.io「我的喜欢」，还能下载、编辑完整数据~</p>
+        <div class="button-group">
+          <span class="cancel">确定</span>
+        </div>
+      </div>
+    </div>
+
+    <div id="weixin-table" class="weixin-table active">
+      <div class="table-box">
+        <table>
+          <tbody class="table-tbody">
+    
+          </tbody>
+        </table>
+      </div>
+    </div> 
+  </main>
+  
+  <script src="./plugin/jquery-3.4.1.min.js"></script>
+  <script src="./index.js"></script>
+  <script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.3.2.js"></script>
+  
+  <script>
+    // 百度统计
+    var _hmt = _hmt || [];
+    (function () {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?07397da1b7bf662b93ece50bb615febf";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+</body>
+</html>

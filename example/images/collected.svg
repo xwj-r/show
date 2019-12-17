@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="40px" height="40px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 56 (81588) - https://sketch.com -->
+    <title>收藏2</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="0%" y1="100%" x2="0%" y2="-41.3677824%" id="linearGradient-1">
+            <stop stop-color="#8759F0" offset="0%"></stop>
+            <stop stop-color="#A883FC" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="收藏2" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <g id="star" transform="translate(4.000000, 4.000000)" fill="url(#linearGradient-1)" stroke="url(#linearGradient-1)" stroke-width="3.3">
+            <polygon id="Shape" points="16.5 0 21.5985 10.5284983 33 12.2271858 24.75 20.4178865 26.697 31.9891435 16.5 26.5230701 6.303 31.9891435 8.25 20.4178865 0 12.2271858 11.4015 10.5284983"></polygon>
+        </g>
+    </g>
+</svg>
