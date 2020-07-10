@@ -97,7 +97,9 @@ class ShowPage {
     this.initData()
     // 获取数据详情
     this.getDataDetail()
-
+    
+    console.log(this.opts);
+    
     // 如果使用的本地数据
     if (config.usingLocalData) {
       that.resolveArticle(block)
@@ -150,23 +152,22 @@ class ShowPage {
     } else {
       this.opts.hidelogo = urlData.hidelogo === "true";
     }
-
-    if(urlData.publishTime.length >= 10){
-      this.opts.publishTime = urlData.publishTime.substring(0,10);
-    }else{
-      this.opts.publishTime = '';
-    }
-    this.opts.dataSouce = urlData.dataSouce ? decodeURIComponent(urlData.dataSouce)+'</br>更多数据请在pc端登陆官网www.dydata.io' : '';
+    // if(urlData.publishTime.length >= 10){
+    //   this.opts.publishTime = urlData.publishTime.substring(0,10);
+    // }else{
+    //   this.opts.publishTime = '';
+    // }
+    // this.opts.dataSouce = urlData.dataSouce ? decodeURIComponent(urlData.dataSouce)+'</br>更多数据请在pc端登陆官网www.dydata.io' : '';
     
-    this.opts.isSubscribed = urlData.isSubscribed === "true";
+    // this.opts.isSubscribed = urlData.isSubscribed === "true";
 
-    this.opts.metaId = urlData.metaId;
+    // this.opts.metaId = urlData.metaId;
     // this.vipLevel = urlData.vipLevel;
     // this.scrftoken = urlData.csrfToken;
     this.opts.sessionId = urlData.sessionId;
-    this.opts.fileType = urlData.fileType;
-    this.opts.isLogined = urlData.isLogined === "true";
-    this.opts.hasPaid = urlData.hasPaid === "true";
+    // this.opts.fileType = urlData.fileType;
+    // this.opts.isLogined = urlData.isLogined === "true";
+    // this.opts.hasPaid = urlData.hasPaid === "true";
 
 
     // 默认通知微信小程序访问历史信息
@@ -196,38 +197,51 @@ class ShowPage {
     const that = this;
     that.opts.itemId = formatUrl(location.href).id.split('d_')[1];
     document.cookie = 'csrftoken=fs4J0NeAOSXXu2fcvaTi9fVdHaKj1P9qwdnrhkgbShGF4rKMS6I0AzPpWGpwXTJy';
+    // const url = `http://192.168.31.146/mapp/detail/ref_info/1839615731772297216/?sessionId=qil2hmfy8eenyo40zgnm72d8hqv0jyk6`;
     const url = `https://dydata.io/mapp/detail/ref_info/${that.opts.itemId}/?sessionId=${that.opts.sessionId}`;
     
     jQuery.ajax({
       url: url,
       type: 'get',
-      async: true,
+      async: false,
       xhrFields: {
         withCredentials: true
       },
       contentType: false,
 
-      success: function (res) {       
-        console.log(res);
-        
-        that.opts.jsonDict = deepClone(res.data);
-        switch (that.opts.jsonDict.data_permission) {
-          case 'free':
-            that.opts.showTipNum = 1;
-            break;
-          case 'need_senior_vip':
-            that.opts.showTipNum = 2;
-            break;
-          case 'need_senior_vip_or_paid':
-            that.opts.showTipNum = 3;
-            break;
-          case 'must_paid':
-            that.opts.showTipNum = 4;
-            break;
+      success: function (res) {
+        let urlData = res.data;
+        if(String(urlData.publish_time).length >= 10){
+          that.opts.publishTime = urlData.publish_time.substring(0,10);
+          }else{
+            that.opts.publishTime = '';
+          }
+          that.opts.dataSouce = urlData.source ? decodeURIComponent(urlData.source)+'</br>更多数据请在pc端登陆官网www.dydata.io' : '';
 
-          default:
-            break;
-        }
+          that.opts.isSubscribed = urlData.is_subscribed;
+
+          that.opts.metaId = urlData.meta_id;
+          that.opts.fileType = urlData.file_type;
+          that.opts.isLogined = urlData.is_logined;
+          that.opts.hasPaid = urlData.has_paid;
+        // that.opts.jsonDict = deepClone(res.data);
+        // switch (that.opts.jsonDict.data_permission) {
+        //   case 'free':
+        //     that.opts.showTipNum = 1;
+        //     break;
+        //   case 'need_senior_vip':
+        //     that.opts.showTipNum = 2;
+        //     break;
+        //   case 'need_senior_vip_or_paid':
+        //     that.opts.showTipNum = 3;
+        //     break;
+        //   case 'must_paid':
+        //     that.opts.showTipNum = 4;
+        //     break;
+
+        //   default:
+        //     break;
+        // }
         //this.showTipNum = 1;
         //resolve();
       },
