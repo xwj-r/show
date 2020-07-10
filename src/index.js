@@ -72,6 +72,7 @@ class ShowPage {
       isAndroid: false,
       // 阻止滑动
       flag: false,
+      hasPaid:"",
 
       // 显示提示的数字  1 表示不显示提示  2 表示提示买高级会员 3 表示购买高级会员或者支付 4 表示收藏数据去网站购买
       showTipNum: 4,
@@ -87,7 +88,7 @@ class ShowPage {
 
     // 合并参数
     this.opts = Object.assign({}, options, defaultOptions);
-
+    
     // 判断是否为移动端，如果是则加载移动端样式
     loadRem()
 
@@ -102,9 +103,11 @@ class ShowPage {
       that.resolveArticle(block)
     } else {
       const that = this;
+      console.log(this.opts.url);
+      
       getData(this.opts.url).then(function (res) {
-        const data = JSON.parse(res)
-        
+
+        const data = JSON.parse(res)        
         if (data.resultCode === 1000) {
           that.loadBlock(data.data.article.contents.pages[0].blocks[0])
           that.opts.data = data.data;
@@ -153,7 +156,8 @@ class ShowPage {
     }else{
       this.opts.publishTime = '';
     }
-    this.opts.dataSouce = urlData.dataSouce ? decodeURIComponent(urlData.dataSouce) : '';
+    this.opts.dataSouce = urlData.dataSouce ? decodeURIComponent(urlData.dataSouce)+'</br>更多数据请在pc端登陆官网www.dydata.io' : '';
+    
     this.opts.isSubscribed = urlData.isSubscribed === "true";
 
     this.opts.metaId = urlData.metaId;
@@ -162,6 +166,7 @@ class ShowPage {
     this.opts.sessionId = urlData.sessionId;
     this.opts.fileType = urlData.fileType;
     this.opts.isLogined = urlData.isLogined === "true";
+    this.opts.hasPaid = urlData.hasPaid === "true";
 
 
     // 默认通知微信小程序访问历史信息
@@ -192,6 +197,7 @@ class ShowPage {
     that.opts.itemId = formatUrl(location.href).id.split('d_')[1];
     document.cookie = 'csrftoken=fs4J0NeAOSXXu2fcvaTi9fVdHaKj1P9qwdnrhkgbShGF4rKMS6I0AzPpWGpwXTJy';
     const url = `https://dydata.io/mapp/detail/ref_info/${that.opts.itemId}/?sessionId=${that.opts.sessionId}`;
+    
     jQuery.ajax({
       url: url,
       type: 'get',
@@ -201,7 +207,9 @@ class ShowPage {
       },
       contentType: false,
 
-      success: function (res) {        
+      success: function (res) {       
+        console.log(res);
+        
         that.opts.jsonDict = deepClone(res.data);
         switch (that.opts.jsonDict.data_permission) {
           case 'free':
@@ -335,10 +343,15 @@ class ShowPage {
 
           opts.subscribeLoadfg = true;
           opts.isSubscribed = (!opts.isSubscribed);
+
           if (opts.isSubscribed) {
             opts.showLikeMask = true;
             $('.like-mask').classList.remove('active')
             opts.flag = true;
+            setTimeout(() => {
+              $('.like-mask').classList.add('active')
+              opts.flag = false;
+            }, 1000);
           } else {
             opts.showDisLikeMask = true;
             $('.disLike-mask').classList.remove('active')
@@ -362,59 +375,80 @@ class ShowPage {
       }
     })
 
-    $('.purchase').addEventListener('click', function () {
-      window["wx"].miniProgram.switchTab({
-        url: `/pages/mymembership/index`
-      });
-    })
+    // $('.purchase').addEventListener('click', function () {
+    //   window["wx"].miniProgram.switchTab({
+    //     url: `/pages/mymembership/index`
+    //   });
+    // })
 
-    $('.transmit').addEventListener('click', function () {
-      // 百度统计
-      window['_hmt'].push(['_trackEvent', 'wxshow', 'wxshow', 'wxshow-saveShare']);
-      const opts = that.opts;
-      if (!opts.isLogined) {
-        window["wx"] && window["wx"].miniProgram.navigateTo({
-          url: '/pages/auth/auth'
-        });
-      } else {
-        if (!opts.transmitLoadfg) {
-          opts.transmitLoadfg = true;
-          opts.flag = true;
-          createModel(`<div class="m-modal">
-          <div class="m-modal-content">
-              正在处理数据，请稍等......
-          </div>
-          </div>`, $("body"))
-          setTimeout(() => {
-            opts.imgurls.nowatermarkImg = null;
-            opts.imgurls.watermarkImg = null;
-            that.uploadImg(false);
-            that.uploadImg(true);
-          });
-          opts.task = window.setInterval(() => {
-            //console.log(JSON.stringify(opts.imgurls));
-            if (opts.imgurls.nowatermarkImg && opts.imgurls.watermarkImg) {
-              let nwi = encodeURIComponent(opts.imgurls.nowatermarkImg);
-              let wi = encodeURIComponent(opts.imgurls.watermarkImg);
-              //console.log(nwi + " " + wi);
-              clearInterval(opts.task);
-              opts.task = 0;
-              opts.transmitLoadfg = false;
-              $('.m-modal').remove();
-              opts.flag = false;
-              window["wx"].miniProgram.navigateTo({
-                url: `/pages/viewchart/index?nowatermarkImg=${nwi}&watermarkImg=${wi}`
-              });
-            }
-          }, 300);
-        }
+    // $('.transmit').addEventListener('click', function () {
+    //   // 百度统计
+    //   window['_hmt'].push(['_trackEvent', 'wxshow', 'wxshow', 'wxshow-saveShare']);
+    //   const opts = that.opts;
+    //   if (!opts.isLogined) {
+    //     window["wx"] && window["wx"].miniProgram.navigateTo({
+    //       url: '/pages/auth/auth'
+    //     });
+    //   } else {
+    //     if (!opts.transmitLoadfg) {
+    //       opts.transmitLoadfg = true;
+    //       opts.flag = true;
+    //       createModel(`<div class="m-modal">
+    //       <div class="m-modal-content">
+    //           正在处理数据，请稍等......
+    //       </div>
+    //       </div>`, $("body"))
+    //       setTimeout(() => {
+    //         opts.imgurls.nowatermarkImg = null;
+    //         opts.imgurls.watermarkImg = null;
+    //         that.uploadImg(false);
+    //         that.uploadImg(true);
+    //       });
+    //       opts.task = window.setInterval(() => {
+    //         //console.log(JSON.stringify(opts.imgurls));
+    //         if (opts.imgurls.nowatermarkImg && opts.imgurls.watermarkImg) {
+    //           let nwi = encodeURIComponent(opts.imgurls.nowatermarkImg);
+    //           let wi = encodeURIComponent(opts.imgurls.watermarkImg);
+    //           //console.log(nwi + " " + wi);
+    //           clearInterval(opts.task);
+    //           opts.task = 0;
+    //           opts.transmitLoadfg = false;
+    //           $('.m-modal').remove();
+    //           opts.flag = false;
+    //           window["wx"].miniProgram.navigateTo({
+    //             url: `/pages/viewchart/index?nowatermarkImg=${nwi}&watermarkImg=${wi}`
+    //           });
+    //         }
+    //       }, 300);
+    //     }
+    //   }
+    // })
+
+    $('.download').addEventListener('click',()=>{
+      let urlData = formatUrl(location.href);
+      let id = urlData.id
+      if (id.indexOf("_") > 0) {
+        id = id.split("_")[1]
       }
+      // 复制进剪切板
+        var oInput = document.createElement('input');
+        oInput.value = "http://dydata.io/datastore/detail/" + id;
+        document.body.appendChild(oInput);
+        // 选择对象
+        oInput.select();
+        // 执行浏览器复制命令
+        document.execCommand("Copy");
+        $('.download-mask').classList.remove('active')
     })
 
     $('.button-group').addEventListener('click', function () {
-      $('.like-mask').classList.add('active')
-      that.opts.flag = false;
+      $('.download-mask').classList.add('active');
     })
+
+    // $('.button-group').addEventListener('click', function () {
+    //   $('.like-mask').classList.add('active')
+    //   that.opts.flag = false;
+    // })
   }
 
   //数据解密
@@ -546,14 +580,14 @@ class ShowPage {
 
     // 判断是否过滤，列 6 行 6
     let newData;
-    if (dataSrc.length > 6) {
-      newData = dataSrc.slice(0, 6);
+    if (dataSrc.length > 4) {
+      newData = dataSrc.slice(0, 4);
     } else {
       newData = dataSrc;
     }
     for (let i = 0; i < newData.length; i++) {
-      if (newData[i].length > 6) {
-        newData[i] = newData[i].slice(0, 6)
+      if (newData[i].length > 4) {
+        newData[i] = newData[i].slice(0, 4)
       }
     }
     block.dataSrc.data[0] = newData;
@@ -611,20 +645,24 @@ class ShowPage {
     if (this.opts.hidelogo) {
       $('.page-logo').classList.add('active');
     }
-    // 头部tips
-    if (showViewDataTip && !isAndroid && showTipNum === 2 && !isSeniorVip) {
-      tip.innerHTML = '高级会员可查看*处隐藏数据<br>前往dydata.io了解更多'
-    } else if (showViewDataTip && isAndroid && showTipNum === 2 && !isSeniorVip) {
-      tip.innerHTML = '高级会员可查看*处隐藏数据<br>点击底部「购买」成为高级会员'
-    } else if (showViewDataTip && !isAndroid && showTipNum === 4 && !paymentStatus) {
-      tip.innerHTML = '第三方数据请添加为「喜欢」<br>前往dydata.io「我的喜欢」了解详情'
-    } else if (showViewDataTip && isAndroid && showTipNum === 4 && !paymentStatus) {
-      tip.innerHTML = '第三方数据请添加为「喜欢」<br>前往dydata.io「我的喜欢」单独购买'
-    } else if (showViewDataTip && !isAndroid && showTipNum === 3 && !paymentStatus && !isSeniorVip) {
-      tip.innerHTML = '高级会员可查看*处隐藏数据<br>前往dydata.io了解更多'
-    } else if (showViewDataTip && isAndroid && showTipNum === 3 && !paymentStatus && !isSeniorVip) {
-      tip.innerHTML = '高级会员可查看*处隐藏数据<br>点击底部「购买」成为高级会员'
+
+    if(!this.opts.hasPaid) {
+      tip.innerHTML = '注：标*部分数据在下载后的文件中完整显示';     
     }
+    // 头部tips
+    // if (showViewDataTip && !isAndroid && showTipNum === 2 && !isSeniorVip) {
+    //   tip.innerHTML = '高级会员可查看*处隐藏数据<br>前往dycharts.com了解更多'
+    // } else if (showViewDataTip && isAndroid && showTipNum === 2 && !isSeniorVip) {
+    //   tip.innerHTML = '高级会员可查看*处隐藏数据<br>点击底部「购买」成为高级会员'
+    // } else if (showViewDataTip && !isAndroid && showTipNum === 4 && !paymentStatus) {
+    //   tip.innerHTML = '第三方数据请添加为「喜欢」<br>前往dycharts.com「我的喜欢」了解详情'
+    // } else if (showViewDataTip && isAndroid && showTipNum === 4 && !paymentStatus) {
+    //   tip.innerHTML = '第三方数据请添加为「喜欢」<br>前往dycharts.com「我的喜欢」单独购买'
+    // } else if (showViewDataTip && !isAndroid && showTipNum === 3 && !paymentStatus && !isSeniorVip) {
+    //   tip.innerHTML = '高级会员可查看*处隐藏数据<br>前往dycharts.com了解更多'
+    // } else if (showViewDataTip && isAndroid && showTipNum === 3 && !paymentStatus && !isSeniorVip) {
+    //   tip.innerHTML = '高级会员可查看*处隐藏数据<br>点击底部「购买」成为高级会员'
+    // }
 
     if (this.opts.publishTime) {
       $('.publish-time').innerHTML = `发布时间：${this.opts.publishTime}`
@@ -659,9 +697,9 @@ class ShowPage {
       $('.collection').classList.add('active');
     }
     
-    if ((isAndroid && showTipNum === 2 && !isSeniorVip) || (isAndroid && showTipNum === 3 && !isSeniorVip && !paymentStatus)) {
-      $('.purchase').setAttribute("style", "display: block");
-    }   
+    // if ((isAndroid && showTipNum === 2 && !isSeniorVip) || (isAndroid && showTipNum === 3 && !isSeniorVip && !paymentStatus)) {
+    //   $('.purchase').setAttribute("style", "display: block");
+    // }   
   }
 
 
@@ -671,7 +709,8 @@ class ShowPage {
 
     // 免费 需要高级会员 需要支付
     // alert(`data_permission:${this.jsonDict.data_permission} is_senior_vip: ${this.jsonDict.is_senior_vip} payment_status: ${this.jsonDict.payment_status}`)
-    if (this.opts.showTipNum === 1 || ((this.opts.showTipNum === 2 || this.opts.showTipNum === 3) && this.opts.jsonDict.is_senior_vip) || ((this.opts.showTipNum === 3 || this.opts.showTipNum === 4) && this.opts.jsonDict.payment_status)) {
+    // if (this.opts.showTipNum === 1 || ((this.opts.showTipNum === 2 || this.opts.showTipNum === 3) && this.opts.jsonDict.is_senior_vip) || ((this.opts.showTipNum === 3 || this.opts.showTipNum === 4) && this.opts.jsonDict.payment_status)) {
+    if (this.opts.hasPaid) {
       hiddenData = deepClone(this.opts.originalData[0]);
     } else {
       hiddenData = (deepClone(this.opts.originalData[0])).map((item, index) => {
@@ -703,6 +742,7 @@ class ShowPage {
         return item;
       });
     }
+    
     this.createTable(hiddenData)
   }
   // 创建表格
@@ -1089,7 +1129,7 @@ class ShowPage {
   uploadImg(iswatermark) {
     const that = this;
     window.scrollTo(0,0);//移至顶部开始截图
-    const uploadUrl = `https://dydata.io/vis/dychart/upload/base64_image`;
+    const uploadUrl = `https://dydata.io/dychart/upload/base64_image`;
 
     $('.show-container').setAttribute('style', ' overflow: visible');
     $('.from-box').setAttribute('style', 'border: none')

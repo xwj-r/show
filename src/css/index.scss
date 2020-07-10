@@ -38,14 +38,17 @@ main {
   display: flex;
   flex-direction: column;
   min-height: 100%;
-  padding-bottom: .7rem;
+  padding-bottom: 1.05rem;
 
   &.active {
     width: 100%;
     min-height: 100%;
     background: url(./images/watermark.png) repeat;
-    background-size: 130%;
+    background-size: 100%;
+    // opacity: 0.9;
+
   }
+
   // 头部
   .chart-title-box {
     padding: .46rem .38rem 0 .38rem;
@@ -58,7 +61,7 @@ main {
       font-weight: 500;
       margin: 0;
       color: #333;
-      font-family: PingFangSC-Semibold;
+      font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Microsoft YaHei", "Hiragino Sans GB", "Segoe UI", "Helvetica Neue", Helvetica, Arial, "Monaco", "Menlo",  "Consolas", sans-serif !important;
       font-size: .44rem;
       line-height: .67rem;
       // max-height: 1.34rem;
@@ -81,7 +84,7 @@ main {
         // width: 3.4rem;
         height: 100%;
         color: #5c6066;
-        font-family: PingFangSC-Medium;
+        font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Microsoft YaHei", "Hiragino Sans GB", "Segoe UI", "Helvetica Neue", Helvetica, Arial, "Monaco", "Menlo",  "Consolas", sans-serif !important;
         font-size: .24rem;
 
         &.active{
@@ -127,7 +130,7 @@ main {
     font-weight: 500;
     margin-top: 99.99rem;
     color: #333;
-    font-family: PingFangSC-Semibold;
+    font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Microsoft YaHei", "Hiragino Sans GB", "Segoe UI", "Helvetica Neue", Helvetica, Arial, "Monaco", "Menlo",  "Consolas", sans-serif !important;
     font-size: .44rem;
     line-height: .67rem;
     padding: .46rem .38rem 0 .38rem;
@@ -333,7 +336,7 @@ main {
         align-items: center;
         width: 100%;
         border-top: 1px solid #cdcad4;
-        padding: .35rem 0;
+        padding: .15rem 0;
         background: #fff;
   
         i {
@@ -347,12 +350,14 @@ main {
         }
   
         img {
-          max-width: 1.42rem;
+          margin-top: 0.06rem;
+          max-width: 1.55rem;
         }
   
         .code-wrapper {
           text-align: center;
           p {
+            width: 2rem;
             margin: 0;
           }
         }
@@ -385,7 +390,7 @@ main {
     box-shadow: 0 -4px 11px 0 rgba(87, 85, 85, 0.2);
     height: 1.05rem;
     font-size: .27rem;
-    padding: 0 .30rem 0 .30rem;
+    padding: 0 .44rem;
 
     span {
       display: block;
@@ -431,6 +436,12 @@ main {
         }
       }
 
+      &.download {
+        i {
+          background: url(./images/download.svg) no-repeat center / contain;
+        }
+      }
+
     }
   }
 }
@@ -440,12 +451,17 @@ main {
   z-index: 10000;
 }
 
+.download-mask {
+  background: rgba(0, 0, 0, 0.5);
+}
+
 .weixin-mask,
 .disLike-mask,
-.like-mask {
+.like-mask,
+.download-mask {
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5);
+  // background: rgba(0, 0, 0, 0.5);
   position: fixed;
   top: 0;
   left: 0;
@@ -503,6 +519,38 @@ main {
       }
     }
   }
+
+  .download-mask-box {
+    width: 6.4rem;
+    height: 4.15rem;
+    background-color: #fff;
+    border-radius: 24px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'PingFang SC', 'Microsoft YaHei', 'Hiragino Sans GB', 'Segoe UI',
+          'Helvetica Neue', Helvetica, Arial, 'Monaco', 'Menlo', 'Consolas', sans-serif !important;
+    font-size: 0.34rem;
+
+    .down-title {
+      text-align: center;
+      font-weight: 600;
+      margin-top: .64rem;
+    }
+
+    .down-content {
+      margin-top: .32rem;
+      text-align: center;
+      color: rgba(0, 0, 0, 0.5)
+    }
+
+    .button-group {
+      text-align: center;
+      height: 1.12rem;
+      line-height: 1.12rem;
+      color:rgb(117,64,238);
+      letter-spacing: 0.02rem;
+      margin-top: .63rem;
+      border-top: 2px rgb(229,229,229) solid;      
+    }
+  }
 }
 
 .like-mask .button-group span {
@@ -511,11 +559,27 @@ main {
 
 .disLike-mask-box,
 .like-mask-box {
-  font-size: .35rem;
+  font-size: .26rem;
   background: #fff;
-  border-radius: 7px;
+  border-radius: .1rem;
   overflow: hidden;
-  padding: .5rem .6rem;
+  width: 2.4rem;
+  height: 2.4rem;
+  background-color: rgba(17, 17, 17, 0.7);
+
+  img {
+    width: 1rem;
+    height: .72rem;
+    margin: .6rem auto .31rem auto;
+    display: block;
+  }
+
+  p {
+    font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Microsoft YaHei", "Hiragino Sans GB", "Segoe UI", "Helvetica Neue", Helvetica, Arial, "Monaco", "Menlo",  "Consolas", sans-serif !important;
+    text-align: center;
+    color: #fff;
+    font-size: .26rem;
+  }
 }
 
 // 移动端单独处理
@@ -569,7 +633,7 @@ main {
     }
 
     .title {
-      font-family: PingFangSC-Medium;
+      font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Microsoft YaHei", "Hiragino Sans GB", "Segoe UI", "Helvetica Neue", Helvetica, Arial, "Monaco", "Menlo",  "Consolas", sans-serif !important;
       font-size: .3rem;
       color: #000;
       margin-top: .15rem;

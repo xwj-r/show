@@ -232,16 +232,16 @@ export function inspectUrl(id) {
     const tag = id.split('_')[0]
     if (tag === 'd') {
       // dataStore
-      url = `https://dydata.io/vis/dychart/data_chart_publish/${id.split('_')[1]}`
+      url = `https://dydata.io/dychart/data_chart_publish/${id.split('_')[1]}`
     } else if (tag === 'c') {
       // 单图
-      url = `https://dydata.io/vis/dychart/chart_publish/${id.split('_')[1]}`
+      url = `https://dydata.io/dychart/chart_publish/${id.split('_')[1]}`
     } else if (tag === 'c') {
       // iframe
     }
   } else {
     // 否则信息图
-    url = `https://dydata.io/vis/dychart/publish/${id}`
+    url = `https://dydata.io/dychart/publish/${id}`
   }
 
   return url;
@@ -339,7 +339,7 @@ export function loadModal(tag, url, fn) {
         </div>
         <div class="title">项目不存在</div>
         <p>您访问的项目链接已经失效，目前无法访问</p>
-        <a href="https://dydata.io/appv2/#/pages/home/createproject" alt="create-project"><button>免费创建项目</button></a>
+        <a href="https://dycharts.com/appv2/#/pages/home/createproject" alt="create-project"><button>免费创建项目</button></a>
       </div>
     `
   } else if (tag && tag === 'password') {

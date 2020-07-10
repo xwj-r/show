@@ -57,8 +57,7 @@
           <div class="from">
             <span class="dataSouce"></span>
             <div class="code-wrapper">
-              <p>扫码领取<br>免费报告</p>
-              <img src="./images/official-account.png">
+              <img src="./images/dydata-log.svg">
             </div>
           </div>
         </div>
@@ -69,21 +68,31 @@
       <div class="tips">温馨提示：由于数据维度较多，图表可能只显示了部分内容，欢迎登录dydata.io查看完整数据。</div>
       <div class="transmit-box">
         <span class="home"><i></i>返回首页</span>
-        <span class="collection"><i></i>喜欢</span>
-        <span class="purchase"><i></i>购买</span>
-        <span class="transmit"><i></i>保存与转发</span>
+        <span class="collection"><i></i>收藏</span>
+        <span class="download"><i></i>下载</span>
+        <!-- <span class="purchase"><i></i>购买</span>
+        <span class="transmit"><i></i>保存与转发</span> -->
       </div>
     </div>
 
     <div class="disLike-mask active" data-html2canvas-ignore="true">
       <div class="disLike-mask-box">
-        已取消喜欢
+        <img src="/images/check.svg" alt="">
+        <p>已取消收藏</p>
       </div>
     </div>
     
     <div class="like-mask active" data-html2canvas-ignore="true">
-      <div class="mask-box">
-        <p>喜欢成功。登录dydata.io「我的喜欢」，还能下载、编辑完整数据~</p>
+      <div class="disLike-mask-box">
+        <img src="/images/check.svg" alt="">
+        <p>收藏成功</p>
+      </div>
+    </div>
+
+    <div class="download-mask active" data-html2canvas-ignore="true">
+      <div class="download-mask-box">
+        <p class="down-title">链接已复制</p>
+        <p class="down-content">请前往PC端浏览器中访问此链接并<br>获得完整数据。</p>
         <div class="button-group">
           <span class="cancel">确定</span>
         </div>
