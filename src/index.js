@@ -446,6 +446,7 @@ class ShowPage {
       }
       // 复制进剪切板
         var oInput = document.createElement('input');
+        oInput.readOnly = "readOnly"
         oInput.value = "http://dydata.io/datastore/detail/" + id;
         document.body.appendChild(oInput);
         // 选择对象
