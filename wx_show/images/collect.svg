@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg width="40px" height="40px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 56 (81588) - https://sketch.com -->
-    <title>收藏1</title>
-    <desc>Created with Sketch.</desc>
-    <g id="收藏1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
-        <g id="star" transform="translate(4.000000, 4.000000)" stroke="#8759F0" stroke-width="3.3">
-            <polygon id="Shape" points="16.5 0 21.5985 10.6851724 33 12.4091379 24.75 20.7217241 26.697 32.4651724 16.5 26.9177586 6.303 32.4651724 8.25 20.7217241 0 12.4091379 11.4015 10.6851724"></polygon>
+<svg width="37px" height="37px" viewBox="0 0 37 37" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>未收藏</title>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <g id="查询数据" transform="translate(-322.000000, -1263.000000)" stroke="#00A370" stroke-width="3.3">
+            <g id="评论工具条" transform="translate(0.000000, 1229.000000)">
+                <g id="编组-2" transform="translate(324.000000, 33.000000)">
+                    <polygon id="未收藏" points="16.5 3 21.5985 13.6851724 33 15.4091379 24.75 23.7217241 26.697 35.4651724 16.5 29.9177586 6.303 35.4651724 8.25 23.7217241 0 15.4091379 11.4015 13.6851724"></polygon>
+                </g>
+            </g>
         </g>
     </g>
 </svg>

@@ -6920,6 +6920,7 @@
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
+                    console.log(element)
                     ownerDocument = element.ownerDocument;
                     if (!ownerDocument) {
                         throw new Error("Element is not attached to a Document");

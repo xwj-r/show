@@ -14,7 +14,7 @@
   <script src="./plugin/md5.min.js"></script>
   <script src="./plugin/html2canvas.js"></script>
 
-  <link rel="stylesheet" href="./index.css?v=20200716">
+  <link rel="stylesheet" href="./index.css?v=2021011902">
 
 </head>
 
@@ -33,7 +33,7 @@
               <!-- 头部tip信息 -->
             </div> 
             <div class="view-data" data-html2canvas-ignore="true">
-              <img class="view-data-img" src="https://ss1.dydata.io/excel.svg"/>
+              <img class="view-data-img" src="./images/excel.svg"/>
               <div class="view-data-text">查看数据</div>
             </div>
           </div>
@@ -77,14 +77,14 @@
 
     <div class="disLike-mask active" data-html2canvas-ignore="true">
       <div class="disLike-mask-box">
-        <img src="/images/check.svg" alt="">
+        <img src="./images/check.svg" alt="">
         <p>已取消收藏</p>
       </div>
     </div>
     
     <div class="like-mask active" data-html2canvas-ignore="true">
       <div class="disLike-mask-box">
-        <img src="/images/check.svg" alt="">
+        <img src="./images/check.svg" alt="">
         <p>收藏成功</p>
       </div>
     </div>
@@ -95,6 +95,22 @@
         <p class="down-content">请前往PC端浏览器中访问此链接并<br>获得完整数据。</p>
         <div class="button-group">
           <span class="cancel">确定</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 自定义模态框 -->
+    <div class="login-mask active" data-html2canvas-ignore="true">
+      <div class="modalDlg">
+        <p class="text">提示</p>
+        <!-- 你还未登录，前往登录 -->
+        <p class="text">登录查看海量数据</p>
+        <div class="view">
+          <!-- <button open-type="openSetting">授权</button> -->
+          <div class="button login-return">取消</div>
+          <div class="button wx-authe-btn wx-logo login-wx">
+            确定
+          </div>
         </div>
       </div>
     </div>
@@ -111,7 +127,7 @@
   </main>
   
   <script src="./plugin/jquery-3.4.1.min.js"></script>
-  <script src="./index.js?v=20200716"></script>
+  <script src="./index.js?v=2021011902"></script>
   <script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.3.2.js"></script>
   
   <script>

@@ -98,15 +98,12 @@ class ShowPage {
     // 获取数据详情
     this.getDataDetail()
     
-    console.log(this.opts);
-    
     // 如果使用的本地数据
     if (config.usingLocalData) {
       that.resolveArticle(block)
     } else {
       const that = this;
-      console.log(this.opts.url);
-      
+
       getData(this.opts.url).then(function (res) {
 
         const data = JSON.parse(res)        
@@ -198,7 +195,7 @@ class ShowPage {
     that.opts.itemId = formatUrl(location.href).id.split('d_')[1];
     document.cookie = 'csrftoken=fs4J0NeAOSXXu2fcvaTi9fVdHaKj1P9qwdnrhkgbShGF4rKMS6I0AzPpWGpwXTJy';
     // const url = `http://192.168.31.146/mapp/detail/ref_info/1839615731772297216/?sessionId=qil2hmfy8eenyo40zgnm72d8hqv0jyk6`;
-    const url = `https://dydata.io/mapp/detail/ref_info/${that.opts.itemId}/?sessionId=${that.opts.sessionId}`;
+    const url = `https://www.dydata.io/mapp/detail/ref_info/${that.opts.itemId}/?sessionId=${that.opts.sessionId}`;
     
     jQuery.ajax({
       url: url,
@@ -224,6 +221,10 @@ class ShowPage {
           that.opts.fileType = urlData.file_type;
           that.opts.isLogined = urlData.is_logined;
           that.opts.hasPaid = urlData.has_paid;
+
+          if (!that.opts.isLogined) {
+            $(".login-mask").classList.remove('active')
+          }
         // that.opts.jsonDict = deepClone(res.data);
         // switch (that.opts.jsonDict.data_permission) {
         //   case 'free':
@@ -301,7 +302,7 @@ class ShowPage {
           if (!$('.page').classList.contains('active')) {
             $('.page').classList.add('active');
             $('.weixin-table').classList.remove('active')
-            $('.view-data-img').src = 'https://ss1.dydata.io/pie.svg';
+            $('.view-data-img').src = './images/pie.svg';
             $('.view-data-text').innerHTML = "查看图表";
             $('.publish-time').classList.add('active');
             $('.view-data-tip').classList.remove('active');
@@ -314,7 +315,7 @@ class ShowPage {
           } else {
             $('.page').classList.remove('active');
             $('.weixin-table').classList.add('active');
-            $('.view-data-img').src = 'https://ss1.dydata.io/excel.svg';
+            $('.view-data-img').src = './images/excel.svg';
             $('.view-data-text').innerHTML = "查看数据";
             $('.publish-time').classList.remove('active');
             $('.view-data-tip').classList.add('active');
@@ -326,6 +327,19 @@ class ShowPage {
           }
         // })
       }
+    })
+
+    $(".login-return").addEventListener("click", function() {
+      window["wx"].miniProgram.switchTab({
+        url: `/pages/home/index`
+      });
+    })
+
+
+    $(".login-wx").addEventListener("click", function() {
+      window["wx"] && window["wx"].miniProgram.navigateTo({
+        url: '/pages/auth/auth'
+      });
     })
 
     $('.home').addEventListener('click', function () {
@@ -376,7 +390,7 @@ class ShowPage {
               opts.flag = false;
             }, 1000);
           }
-          let url = "https://dydata.io/mapp/user/favorite"; //"/mapp/user/favorite"  ;
+          let url = "https://www.dydata.io/mapp/user/favorite"; //"/mapp/user/favorite"  ;
           let datap = `?metaId=${opts.metaId}&id=${opts.data.id}&isAdded=${opts.isSubscribed}&sessionId=${opts.sessionId}`;
           url += datap;
 
@@ -439,21 +453,29 @@ class ShowPage {
     // })
 
     $('.download').addEventListener('click',()=>{
-      let urlData = formatUrl(location.href);
-      let id = urlData.id
-      if (id.indexOf("_") > 0) {
-        id = id.split("_")[1]
-      }
-      // 复制进剪切板
-        var oInput = document.createElement('input');
-        oInput.readOnly = "readOnly"
-        oInput.value = "http://dydata.io/datastore/detail/" + id;
-        document.body.appendChild(oInput);
-        // 选择对象
-        oInput.select();
-        // 执行浏览器复制命令
-        document.execCommand("Copy");
-        $('.download-mask').classList.remove('active')
+      const opts = that.opts;
+
+      if (!opts.isLogined) {
+        window["wx"] && window["wx"].miniProgram.navigateTo({
+          url: '/pages/auth/auth'
+        });
+      } else {
+        let urlData = formatUrl(location.href);
+        let id = urlData.id
+        if (id.indexOf("_") > 0) {
+          id = id.split("_")[1]
+        }
+        // 复制进剪切板
+          var oInput = document.createElement('input');
+          oInput.readOnly = "readOnly"
+          oInput.value = "http://www.dydata.io/datastore/detail/" + id;
+          document.body.appendChild(oInput);
+          // 选择对象
+          oInput.select();
+          // 执行浏览器复制命令
+          document.execCommand("Copy");
+          $('.download-mask').classList.remove('active')
+      }   
     })
 
     $('.button-group').addEventListener('click', function () {
@@ -622,7 +644,7 @@ class ShowPage {
   // 解析项目
   resolveArticle(data) {
     const newData = deepClone(data)
-
+    console.log(data);
     // 设置项目标题
     document.title = newData.title === '' ? '未命名' : newData.title
 
@@ -654,8 +676,9 @@ class ShowPage {
       $('main').classList.remove('active');
     }
 
-    const margin_top = $('header').getBoundingClientRect().height / 100;
-    $('.weixin-table').setAttribute('style', `top: ${margin_top + 1.55}rem`);
+    const margin_top = $('header').getBoundingClientRect().height;
+
+    $('.weixin-table').setAttribute('style', `top: ${margin_top + 5}px`);
 
     if (this.opts.hidelogo) {
       $('.page-logo').classList.add('active');
@@ -1144,7 +1167,7 @@ class ShowPage {
   uploadImg(iswatermark) {
     const that = this;
     window.scrollTo(0,0);//移至顶部开始截图
-    const uploadUrl = `https://dydata.io/dychart/upload/base64_image`;
+    const uploadUrl = `https://www.dydata.io/dychart/upload/base64_image`;
 
     $('.show-container').setAttribute('style', ' overflow: visible');
     $('.from-box').setAttribute('style', 'border: none')

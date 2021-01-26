@@ -232,16 +232,16 @@ export function inspectUrl(id) {
     const tag = id.split('_')[0]
     if (tag === 'd') {
       // dataStore
-      url = `https://dydata.io/dychart/data_chart_publish/${id.split('_')[1]}`
+      url = `https://www.dydata.io/dychart/data_chart_publish/${id.split('_')[1]}`
     } else if (tag === 'c') {
       // 单图
-      url = `https://dydata.io/dychart/chart_publish/${id.split('_')[1]}`
+      url = `https://www.dydata.io/dychart/chart_publish/${id.split('_')[1]}`
     } else if (tag === 'c') {
       // iframe
     }
   } else {
     // 否则信息图
-    url = `https://dydata.io/dychart/publish/${id}`
+    url = `https://www.dydata.io/dychart/publish/${id}`
   }
 
   return url;
@@ -406,8 +406,6 @@ export function createModel(data, el) {
 }
 
 export function formatFloatNumber(data) {
-  console.log(data);
-  
   const newData = (deepClone(data)).map(item => {
     return item.map(item => {
       if (item === '') {
