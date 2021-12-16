@@ -20,7 +20,6 @@ import {
   formatFloatNumber
 } from './js/util'
 
-
 // import { Button } from 'selenium-webdriver';
 
 class ShowPage {
@@ -219,12 +218,12 @@ class ShowPage {
 
           that.opts.metaId = urlData.meta_id;
           that.opts.fileType = urlData.file_type;
-          that.opts.isLogined = urlData.is_logined;
+          // that.opts.isLogined = urlData.is_logined; //目前不做判断逻辑 20210303
           that.opts.hasPaid = urlData.has_paid;
 
-          if (!that.opts.isLogined) {
-            $(".login-mask").classList.remove('active')
-          }
+          // if (!that.opts.isLogined) {
+          //   $(".login-mask").classList.remove('active')
+          // }
         // that.opts.jsonDict = deepClone(res.data);
         // switch (that.opts.jsonDict.data_permission) {
         //   case 'free':
@@ -329,18 +328,18 @@ class ShowPage {
       }
     })
 
-    $(".login-return").addEventListener("click", function() {
-      window["wx"].miniProgram.switchTab({
-        url: `/pages/home/index`
-      });
-    })
+    // $(".login-return").addEventListener("click", function() {
+    //   window["wx"].miniProgram.switchTab({
+    //     url: `/pages/home/index`
+    //   });
+    // })
 
 
-    $(".login-wx").addEventListener("click", function() {
-      window["wx"] && window["wx"].miniProgram.navigateTo({
-        url: '/pages/auth/auth'
-      });
-    })
+    // $(".login-wx").addEventListener("click", function() {
+    //   window["wx"] && window["wx"].miniProgram.navigateTo({
+    //     url: '/pages/auth/auth'
+    //   });
+    // })
 
     $('.home').addEventListener('click', function () {
       // 百度统计
@@ -460,27 +459,54 @@ class ShowPage {
           url: '/pages/auth/auth'
         });
       } else {
-        let urlData = formatUrl(location.href);
-        let id = urlData.id
-        if (id.indexOf("_") > 0) {
-          id = id.split("_")[1]
-        }
-        // 复制进剪切板
-          var oInput = document.createElement('input');
-          oInput.readOnly = "readOnly"
-          oInput.value = "http://www.dydata.io/datastore/detail/" + id;
-          document.body.appendChild(oInput);
-          // 选择对象
-          oInput.select();
-          // 执行浏览器复制命令
-          document.execCommand("Copy");
-          $('.download-mask').classList.remove('active')
+        // let urlData = formatUrl(location.href);
+        // let id = urlData.id
+        // if (id.indexOf("_") > 0) {
+        //   id = id.split("_")[1]
+        // }
+
+        
+        // // 复制进剪切板
+        //   var oInput = document.createElement('input');
+        //   oInput.readOnly = "readOnly"
+        //   oInput.value = "http://www.dydata.io/datastore/detail/" + id;
+        //   document.body.appendChild(oInput);
+        //   // 选择对象
+        //   oInput.select();
+        //   // 执行浏览器复制命令
+        //   document.execCommand("Copy");
+        //   $('.download-mask').classList.remove('active')
+        $('.download-mask').classList.remove('active')
       }   
     })
 
-    $('.button-group').addEventListener('click', function () {
-      $('.download-mask').classList.add('active');
+
+    $('.download-copy').addEventListener('click',()=> {
+      // 选择对象
+      $('.model-url').select();
+      // 执行浏览器复制命令
+      document.execCommand("Copy");
+      $('.download-mask').classList.add('active')
+      // if ($(".tip").style.display === "none" || getComputedStyle($(".tip")).display === "none") {
+      //   setTimeout(() => {
+      //     $(".tip").style.display = "none";
+      //   },3000)
+      // }
+      // $(".tip").style.display = "block"
+      weui.toast('复制成功', {
+        duration: 3000,
+        className: "bears"
+      });
+
     })
+
+    $('.download-close').addEventListener("click",()=> {
+      $('.download-mask').classList.add('active')
+    })
+
+    // $('.button-group').addEventListener('click', function () {
+    //   $('.download-mask').classList.add('active');
+    // })
 
     // $('.button-group').addEventListener('click', function () {
     //   $('.like-mask').classList.add('active')
@@ -671,6 +697,13 @@ class ShowPage {
     const showTipNum = this.opts.showTipNum;
     const isSeniorVip = this.opts.jsonDict.is_senior_vip;
     const paymentStatus = this.opts.jsonDict.payment_status;
+    let urlData = formatUrl(location.href);
+    let id = urlData.id
+    if (id.indexOf("_") > 0) {
+      id = id.split("_")[1]
+    }
+
+    $('.model-url').value = "http://www.dydata.io/datastore/detail/" + id;
 
     if (this.opts.hidewatermark) {
       $('main').classList.remove('active');
@@ -726,6 +759,7 @@ class ShowPage {
       metaId: this.opts.metaId,
       fileType: this.opts.fileType
     };
+
     let historyData = JSON.stringify(history);
     window["wx"] && window["wx"].miniProgram.postMessage({
       data: historyData
@@ -734,7 +768,7 @@ class ShowPage {
     if (this.opts.isSubscribed) {
       $('.collection').classList.add('active');
     }
-    
+
     // if ((isAndroid && showTipNum === 2 && !isSeniorVip) || (isAndroid && showTipNum === 3 && !isSeniorVip && !paymentStatus)) {
     //   $('.purchase').setAttribute("style", "display: block");
     // }   

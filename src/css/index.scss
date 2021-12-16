@@ -602,12 +602,21 @@ main {
   }
 
   .download-mask-box {
-    width: 6.2rem;
-    height: 4.15rem;
+    width: 5.8rem;
+    // height: 4rem;
     background-color: #fff;
-    border-radius: 0.25rem;
+    border-radius: 0.1rem;
     font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,PingFang SC,Microsoft YaHei,Hiragino Sans GB,Helvetica Neue,Helvetica,Arial,Monaco,Menlo,Consolas,sans-serif!important;
     font-size: .34rem;
+    position: relative;
+
+    .download-close {
+      position: absolute;
+      width: .4rem;
+      height: .4rem;
+      top: .2rem;
+      right: .2rem;
+    }
 
     .down-title {
       text-align: center;
@@ -630,7 +639,114 @@ main {
       margin-top: .63rem;
       border-top: 1px rgb(229,229,229) solid;      
     }
+
+    .text {
+      font-size: .34rem;
+      color: #353535;
+      font-weight: normal;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .tips {
+      text-align: center;
+      color: #434343;
+      line-height: .5rem;
+      padding: .16rem .25rem 0 .25rem;
+      // color: #000;
+      font-size: .32rem;
+      margin-top: .4rem;
+      font-weight: 600;
+    }
+
+    .url{
+			border-radius: 8rpx;
+			border: solid 1rpx #ddd;
+			resize: none;
+			padding: 30rpx 22rpx;
+			font-size: 30rpx;
+			background: #f8f8f8;
+			overflow: hidden;
+			outline: 0;
+			text-align: center;
+			line-height: 42rpx;
+			color: #666;
+			margin: 40rpx 20rpx;
+			word-break: break-all;
+      
+    }
+
+    .view {
+      width: 100%;	
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .download-copy {
+      padding: .2rem .42rem;
+      text-align: center;
+      font-size: .3rem;
+      color: #fff;
+      background-color: #13bf89;
+      border-radius: .2rem;
+      cursor: pointer;
+      font-weight: 700;
+      line-height: normal;
+      margin-bottom: .4rem;
+    }
+
+    .model-url {
+      width: 5.4rem;
+      border-radius: .08rem;
+      border: solid .01rem #ddd;
+      resize: none;
+      padding: .3rem .22rem;
+      font-size: .3rem;
+      background: #f8f8f8;
+      overflow: hidden;
+      outline: 0;
+      text-align: center;
+      line-height: .42rem;
+      color: #666;
+      margin: .4rem .2rem;
+      outline: none;
+      box-shadow: none;
+      -webkit-appearance: none;
+      appearance: none;
+      word-break: break-all;
+      font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    }
   }
+  
+}
+
+.tip {
+  width: 6.4rem;
+  background-color: rgba(0,0,0,.7);
+  box-shadow: 0rem .04rem .08rem 0rem 
+    rgba(0, 0, 0, 0.3);
+  border-radius: .08rem;
+  line-height: .22rem;
+  font-size: .14rem;
+  color: #fff;
+  cursor: default;
+  user-select: none;
+  position: fixed;
+  top: calc(50% - .2rem);
+
+  left: 50%;
+  transform: translate(-50%,0);
+  display: none;
+  z-index: 7;
+  text-align: center;
+  line-height: .5rem;
+  padding: .28rem .2rem;
+  font-size: .29rem;
+  margin-top: .4rem;
 }
 
 .like-mask .button-group span {

@@ -13,8 +13,9 @@
   <script src="./plugin/d3.v5.min.js"></script>
   <script src="./plugin/md5.min.js"></script>
   <script src="./plugin/html2canvas.js"></script>
-
-  <link rel="stylesheet" href="./index.css?v=2021011902">
+  <link rel="stylesheet" href="https://res.wx.qq.com/open/libs/weui/2.0.1/weui.min.css">
+  <script type="text/javascript" src="https://res.wx.qq.com/open/libs/weuijs/1.2.1/weui.min.js"></script>
+  <link rel="stylesheet" href="./index.css?v=2021030301">
 
 </head>
 
@@ -91,29 +92,35 @@
 
     <div class="download-mask active" data-html2canvas-ignore="true">
       <div class="download-mask-box">
-        <p class="down-title">链接已复制</p>
+        <image class="download-close" src="./images/close-icon.svg" />
+        <text class="text tips">请前往电脑浏览器<br/>访问链接下载完整数据</text>
+        <textarea class="model-url" readonly></textarea>
+        <div class="view">
+          <span class="download-copy">复制链接</span>
+        </div>
+        <!-- <p class="down-title">链接已复制</p>
         <p class="down-content">请前往PC端浏览器中访问此链接并<br>获得完整数据。</p>
         <div class="button-group">
           <span class="cancel">确定</span>
-        </div>
+        </div> -->
       </div>
     </div>
 
     <!-- 自定义模态框 -->
-    <div class="login-mask active" data-html2canvas-ignore="true">
+    <!-- <div class="login-mask active" data-html2canvas-ignore="true">
       <div class="modalDlg">
         <p class="text">提示</p>
-        <!-- 你还未登录，前往登录 -->
+
         <p class="text">登录查看海量数据</p>
         <div class="view">
-          <!-- <button open-type="openSetting">授权</button> -->
+
           <div class="button login-return">取消</div>
           <div class="button wx-authe-btn wx-logo login-wx">
             确定
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
 
     <div id="weixin-table" class="weixin-table active">
       <div class="table-box">
@@ -124,10 +131,14 @@
         </table>
       </div>
     </div> 
+
+    <div class="tip">
+      “镝数聚｜读数据查报告”读取了你的剪切板内容
+    </div>
   </main>
   
   <script src="./plugin/jquery-3.4.1.min.js"></script>
-  <script src="./index.js?v=2021011902"></script>
+  <script src="./index.js?v=2021030301"></script>
   <script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.3.2.js"></script>
   
   <script>

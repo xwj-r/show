@@ -15,6 +15,8 @@
   <script src="./src/js/html2canvas.js"></script>
 
   <link rel="stylesheet" href="./dist/index.css">
+  <link rel="stylesheet" href="https://res.wx.qq.com/open/libs/weui/2.0.1/weui.min.css">
+  <script type="text/javascript" src="https://res.wx.qq.com/open/libs/weuijs/1.2.1/weui.min.js"></script>
   <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://res2.wx.qq.com/open/js/jweixin-1.6.0.js"></script>
 </head>
@@ -92,17 +94,23 @@
 
     <div class="download-mask active" data-html2canvas-ignore="true">
       <div class="download-mask-box">
-        <p class="down-title">链接已复制</p>
+        <image class="download-close" src="./images/close-icon.svg" />
+        <text class="text tips">请前往电脑浏览器<br/>访问链接下载完整数据</text>
+        <textarea class="model-url" readonly></textarea>
+        <div class="view">
+          <span class="download-copy">复制链接</span>
+        </div>
+        <!-- <p class="down-title">链接已复制</p>
         <p class="down-content">请前往PC端浏览器中访问此链接并<br>获得完整数据。</p>
         <div class="button-group">
           <span class="cancel">确定</span>
-        </div>
+        </div> -->
       </div>
     </div>
 
     
     <!-- 自定义模态框 -->
-    <div class="login-mask active" data-html2canvas-ignore="true">
+    <div class="login-mask active" data-html2canvas-ignore="true" style="display: none;">
       <div class="modalDlg">
         <p class="text">提示</p>
         <!-- 你还未登录，前往登录 -->
@@ -127,6 +135,10 @@
         </table>
       </div>
     </div> 
+
+    <div class="tip">
+      “镝数聚｜读数据查报告”读取了你的剪切板内容
+    </div>
   </main>
 
 
